@@ -1,5 +1,3 @@
-Here’s a minimal but clear README.md ready for your project. You can push it along with all code and the .env.example so your GitHub repo is complete:
-
 # Autothinker Tableau
 
 Autothinker Tableau is an AI-powered business blueprint generator that integrates **OpenAI** or **Vertex AI** with Salesforce and Tableau Next to provide actionable insights, recommendations, and growth strategies for businesses.

@@ -1,13 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const { fetchSalesforceData } = require("../utils/salesforceClient");
+const { fetchSalesforceData } = require("../utils/salesforceClient"); // update path if needed
 
-router.get("/fetch/:object", async (req, res) => {
+// Fetch Salesforce objects by idea
+router.get("/data", async (req, res) => {
   try {
-    const data = await fetchSalesforceData(req.params.object);
-    res.json({ success: true, data });
+    const idea = req.query.idea || "";
+    const data = await fetchSalesforceData(idea);
+    res.json(data);
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Placeholder for future Salesforce actions
+router.post("/action", async (req, res) => {
+  try {
+    // TODO: implement future Salesforce API actions
+    res.json({ status: "SUCCESS_PLACEHOLDER", payload: req.body });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

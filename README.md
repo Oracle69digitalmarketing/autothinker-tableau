@@ -1,89 +1,193 @@
-# Autothinker Tableau
+# 🚀 AutoThinker Tableau WDC
 
-Autothinker Tableau is an AI-powered business blueprint generator that integrates **OpenAI** or **Vertex AI** with Salesforce and Tableau Next to provide actionable insights, recommendations, and growth strategies for businesses.
+AI-powered Business Idea → Insights → Dashboards connector that brings AutoThinker intelligence directly into Tableau + Salesforce Data Cloud for smarter decisions.
 
----
+Built for hackathons, this project merges AI idea generation, CRM context, and Tableau visual insights into one seamless workflow.
 
-## Features
-
-- Generate business blueprints from user ideas.
-- Supports **OpenAI** and **Vertex AI (Gemini)** models.
-- Pulls unified data and insights from Salesforce.
-- Displays interactive analytics via Tableau Next.
-- API-first and modular architecture for easy extension.
 
 ---
 
-## Folder Structure
+## 🌟 Why This Matters
 
-/autothinker-tableau │ ├─ /routes       # Express API routes ├─ /utils        # AI clients (OpenAI, Vertex AI) ├─ /public       # Static frontend (WDC) ├─ server.js     # Express server entry ├─ .env.example  # Environment variable template └─ README.md
+Business leaders and innovators struggle to connect early-stage ideas with real, data-driven insights. AutoThinker solves this by:
+
+🔮 Generating AI insights instantly from a raw idea.
+
+📇 Enriching with CRM data (Salesforce Data Cloud).
+
+📊 Feeding Tableau dashboards with structured insights.
+
+🚀 Future-proof connectors for Data Cloud + embedded dashboards.
+
+
+Result: Faster, smarter decisions with AI + Tableau side-by-side.
+
 
 ---
 
-## Setup
+## 🛠 Tech Stack
 
-1. Copy `.env.example` to `.env` and fill in credentials.
-2. Install dependencies:
+Frontend: HTML5, JavaScript, Tableau WDC 2.3
 
-```bash
+Backend: Node.js, Express.js
+
+AI Layer: AutoThinker API (mocked/local for hackathon)
+
+CRM Layer: Salesforce Data Cloud (placeholder endpoints)
+
+Analytics Layer: Tableau (WDC integration, embed simulation)
+
+
+
+---
+
+## ⚙️ Features
+
+✨ AI Insights Generator → enter an idea, get structured insights.
+
+🧪 Simulator Mode → run all APIs (AI + CRM + Tableau stub) without Tableau.
+
+📊 Tableau Connector Mode → feeds AutoThinker insights directly into Tableau Desktop/Server.
+
+📇 Salesforce Data Cloud Stub → sample CRM records to enrich context.
+
+📌 Dashboard & Embed APIs → stubs for creating + embedding Tableau dashboards.
+
+🔑 Credential-aware → works with placeholders now, upgrades seamlessly once Tableau PAT creds are provided.
+
+
+
+---
+
+## 🚀 Quickstart
+
+1. Clone & Install
+
+git clone https://github.com/<your-org>/autothinker-tableau-wdc.git
+cd autothinker-tableau-wdc
 npm install
 
-3. Run locally:
+2. Run Backend
+
+npm run dev
+# Express server runs at http://localhost:5000
+
+3. Launch Frontend
+
+Open index.html in browser OR serve it from the same server.
+
+
+---
+
+### 🎬 How to Use
+
+1. Enter an Idea → e.g. “AI-powered Agri Marketplace”.
+
+
+2. Choose Mode:
+
+🧪 Simulator → preview insights + CRM + Tableau embed (demo safe).
+
+📊 Get Data (Tableau) → register as Tableau WDC connector, feed insights into Tableau.
 
 
 
-npm start
+3. View Outputs:
 
-4. Access frontend at http://localhost:8000.
+AI insights JSON
+
+Salesforce CRM enrichment
+
+Tableau embed iframe (mock or live if creds configured)
+
 
 
 
 
 ---
 
-Environment Variables
+### 🔐 Credentials
 
-USE_VERTEX=false
-OPENAI_API_KEY=your-openai-api-key
-GCP_PROJECT_ID=your-gcp-project-id
-GCP_LOCATION=us-central1
-VERTEX_AI_ENDPOINT_ID=your-endpoint-id
-GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/gcp-key.json
+Add real Tableau credentials to .env to upgrade from placeholders:
 
+TABLEAU_SERVER_URL=https://your-tableau-server.com
+TABLEAU_PERSONAL_ACCESS_TOKEN_NAME=yourPATname
+TABLEAU_PERSONAL_ACCESS_TOKEN_VALUE=yourPATsecret
+TABLEAU_SITE_ID=yourSiteId
 
----
-
-API Endpoints
-
-POST /api/ai/generate – Generate business blueprint from idea.
-
-GET /api/ai/test – Test Vertex AI integration.
-
+Without these, the project runs in mock/demo mode (safe for hackathon).
 
 
 ---
 
-Deployment
+### 📁 Project Structure
 
-Deploy on Render, Heroku, or any Node.js hosting provider.
+/frontend
+  index.html   # AutoThinker WDC UI
+/backend
+  server.js    # Express entry
+  routes/
+    tableau.js # Tableau API routes
+  utils/
+    tableauClient.js # Tableau client (sign-in, fetch views, etc.)
 
-Use Render dashboard to set environment variables from .env.
+
+---
+
+### 🌍 Demo Flow (Hackathon)
+
+1. Enter idea → AI insights appear instantly.
+
+
+2. Simulator → shows full flow with sample CRM + Tableau embed.
+
+
+3. Tableau button → demonstrates connector into Tableau Desktop/Server.
+
+
+4. Judges see end-to-end value chain (Idea → Insights → Dashboard).
+
 
 
 
 ---
 
-Contributing
+## 📹 Submission Checklist
 
-Fork repo and submit pull requests.
+✅ Hosted Project URL: [Add Vercel/Render link here]
 
-Keep secrets out of commits.
+✅ Repo Link: [GitHub repo link]
+
+✅ Demo Video: [YouTube/Drive link]
+
+✅ Description: This README
 
 
 
 ---
 
-License
+### 🔮 Future Expansion
 
-MIT
+Real Salesforce Data Cloud sync
 
+Real Tableau dashboard creation/embedding
+
+AI idea clustering + scoring models
+
+Multi-user collaboration + sharing
+
+
+
+---
+
+## 👥 Team
+
+Prince Adewumi Adewale – Product & Engineering
+
+Adewumi Oluwaseun – Strategy & Nonprofit Lead
+
+
+
+---
+
+🔥 With AutoThinker WDC, your idea doesn’t just stay an idea — it becomes an insight-driven, dashboard-ready business case in minutes.

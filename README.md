@@ -187,7 +187,18 @@ Prince Adewumi Adewale – Product & Engineering
 Adewumi Oluwaseun – Strategy & Nonprofit Lead
 
 
+---
+
+## 🎥 Demo Script (for judges)
+1. Enter a sample idea: *“AI-powered Agri Marketplace”*
+2. Click **Simulator** → shows AI + Salesforce + Tableau outputs
+3. Click **Get Data (Tableau)** → connector registers in Tableau
+4. End screen: Tableau dashboard preview
 
 ---
+
+## 📄 License
+This project is licensed under the MIT License.  
+See the [LICENSE](LICENSE) file for details.
 
 🔥 With AutoThinker WDC, your idea doesn’t just stay an idea — it becomes an insight-driven, dashboard-ready business case in minutes.

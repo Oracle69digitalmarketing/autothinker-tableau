@@ -1,34 +1,50 @@
 const express = require("express");
 const router = express.Router();
-const { fetchDataCloud, createDashboard, embedDashboard } = require("../utils/tableauClient");
+const {
+  fetchTableauData,
+  fetchDataCloud,
+  createDashboard,
+  embedDashboard
+} = require("../utils/tableauClient"); // update path if needed
 
-// Fetch sample data from Data Cloud API
-router.get("/fetch-data", async (req, res) => {
+// Fetch Tableau views
+router.get("/views", async (req, res) => {
   try {
-    const data = await fetchDataCloud(); // placeholder function
-    res.json({ success: true, data });
+    const idea = req.query.idea || "";
+    const views = await fetchTableauData(idea);
+    res.json({ views });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Create a Tableau dashboard (placeholder)
-router.post("/create-dashboard", async (req, res) => {
+// Placeholder: Fetch Data Cloud objects
+router.get("/data-cloud", async (req, res) => {
   try {
-    const dashboardId = await createDashboard(req.body); // placeholder
-    res.json({ success: true, dashboardId });
+    const data = await fetchDataCloud();
+    res.json({ data });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Embed a Tableau dashboard in frontend
+// Placeholder: Create dashboard
+router.post("/dashboard", async (req, res) => {
+  try {
+    const dashboardId = await createDashboard(req.body);
+    res.json({ dashboardId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Placeholder: Embed dashboard
 router.get("/embed/:dashboardId", async (req, res) => {
   try {
-    const embedUrl = await embedDashboard(req.params.dashboardId); // placeholder
-    res.json({ success: true, embedUrl });
+    const url = await embedDashboard(req.params.dashboardId);
+    res.json({ embedUrl: url });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 

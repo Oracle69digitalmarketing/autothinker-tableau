@@ -1,24 +1,48 @@
+// routes/ai.js
 const express = require("express");
 const router = express.Router();
-const { generateBusinessData } = require("../utils/gptClient");
-const { pushToSalesforce } = require("../utils/salesforce");
+
+function randomPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function randomScore(min = 0, max = 100) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 router.post("/generate", async (req, res) => {
   const { idea } = req.body;
-  if (!idea) return res.status(400).json({ error: "Idea is required" });
 
-  try {
-    const data = await generateBusinessData(idea);
-    if (!data) return res.status(500).json({ error: "AI generation failed" });
+  const insightTemplates = [
+    `Market potential analysis for "${idea}" with growth forecast.`,
+    `Competitive landscape scan for "${idea}".`,
+    `Risks and challenges facing "${idea}" in emerging markets.`,
+    `Customer segmentation strategy for "${idea}".`,
+    `Go-to-market roadmap for "${idea}" in the first 6 months.`,
+    `Financial projections and ROI for "${idea}".`
+  ];
 
-    // Push to Salesforce
-    await pushToSalesforce(data);
+  const sources = ["AutoThinker AI", "Market DB", "Analyst Engine", "Strategy Core"];
+  const riskLevels = ["Low", "Medium", "High"];
+  const opportunityTypes = ["Expansion", "Optimization", "Innovation", "Disruption"];
 
-    res.json(data);
-  } catch (err) {
-    console.error("Error during AI generation or Salesforce push:", err);
-    res.status(500).json({ error: "Server error", details: err.message });
-  }
+  const fakeInsights = Array.from({ length: 3 }, () => ({
+    text: randomPick(insightTemplates),
+    source: randomPick(sources),
+    confidence: randomScore(70, 99),       // % confidence
+    risk: randomPick(riskLevels),          // categorical
+    opportunityScore: randomScore(50, 100),// quantifiable score
+    opportunityType: randomPick(opportunityTypes)
+  }));
+
+  res.json({
+    idea,
+    insights: fakeInsights,
+    metadata: {
+      generatedAt: new Date().toISOString(),
+      engine: "AutoThinker Demo AI",
+    },
+  });
 });
 
 module.exports = router;

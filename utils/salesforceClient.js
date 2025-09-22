@@ -7,6 +7,7 @@ const jsforce = require("jsforce");
  * - Returns placeholder data if credentials are missing
  */
 async function fetchSalesforceData(idea) {
+  // Placeholder fallback
   if (
     !process.env.SALESFORCE_USERNAME ||
     !process.env.SALESFORCE_PASSWORD ||
@@ -52,4 +53,12 @@ async function fetchSalesforceData(idea) {
   }
 }
 
-module.exports = { fetchSalesforceData };
+/**
+ * Placeholder for future Salesforce actions
+ */
+async function performSalesforceAction(actionPayload) {
+  console.log("[Placeholder] Performing Salesforce action:", actionPayload);
+  return { status: "SUCCESS_PLACEHOLDER" };
+}
+
+module.exports = { fetchSalesforceData, performSalesforceAction };

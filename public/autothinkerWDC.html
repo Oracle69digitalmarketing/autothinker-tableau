@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AutoThinker Tableau WDC</title>
+  <script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { margin: 6px 0; padding: 8px; }
+    pre { background: #f4f4f4; padding: 12px; border-radius: 6px; }
+    .btn { cursor: pointer; border: none; border-radius: 6px; }
+    .primary { background: #007bff; color: white; }
+    .secondary { background: #6c757d; color: white; }
+  </style>
+</head>
+<body>
+  <h1>🚀 AutoThinker Tableau WDC</h1>
+  <p>Enter a business idea and preview AI insights before Tableau:</p>
+
+  <input type="text" id="ideaInput" placeholder="Enter your business idea" style="width:300px;">
+  <br>
+  <button class="btn primary" id="getDataBtn">📊 Get Data (Tableau)</button>
+  <button class="btn secondary" id="simulateBtn">🧪 Run in Simulator</button>
+
+  <h3>🔍 Preview Results</h3>
+  <pre id="previewBox">No data yet...</pre>
+
+  <script>
+    const SERVER_URL = window.location.origin;
+
+    // Step 1: Define WDC
+    const myConnector = tableau.makeConnector();
+
+    myConnector.getSchema = function(schemaCallback) {
+      const cols = [
+        { id: "text", dataType: tableau.dataTypeEnum.string },
+        { id: "source", dataType: tableau.dataTypeEnum.string }
+      ];
+      schemaCallback([{ id: "autothinkerInsights", alias: "AutoThinker AI Insights", columns: cols }]);
+    };
+
+    myConnector.getData = async function(table, doneCallback) {
+      const idea = document.getElementById("ideaInput").value || "Default Idea";
+
+      try {
+        const resp = await fetch(`${SERVER_URL}/api/ai/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idea })
+        });
+
+        const json = await resp.json();
+
+        // ✅ Show preview
+        document.getElementById("previewBox").innerText = JSON.stringify(json, null, 2);
+
+        // ✅ Feed Tableau
+        const rows = (json.insights || []).map(item => ({
+          text: item.text,
+          source: item.source
+        }));
+
+        table.appendRows(rows);
+        doneCallback();
+      } catch (err) {
+        document.getElementById("previewBox").innerText = "Error: " + err.message;
+        doneCallback();
+      }
+    };
+
+    tableau.registerConnector(myConnector);
+
+    // Step 2: Tableau button
+    document.getElementById("getDataBtn").addEventListener("click", () => {
+      tableau.connectionName = "AutoThinker Insights";
+      tableau.submit();
+    });
+
+    // Step 3: Simulator button (no Tableau needed)
+    document.getElementById("simulateBtn").addEventListener("click", async () => {
+      const idea = document.getElementById("ideaInput").value || "Simulator Idea";
+      try {
+        const resp = await fetch(`${SERVER_URL}/api/ai/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idea })
+        });
+        const json = await resp.json();
+        document.getElementById("previewBox").innerText = "SIMULATOR OUTPUT:\n" + JSON.stringify(json, null, 2);
+      } catch (err) {
+        document.getElementById("previewBox").innerText = "Simulator Error: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
